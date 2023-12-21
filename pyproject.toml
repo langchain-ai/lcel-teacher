@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "__app_name__"
+name = "code-langchain-app"
 version = "0.1.0"
 description = ""
 authors = ["Lance Martin <lance@langchain.dev>"]
@@ -10,7 +10,6 @@ python = "^3.11"
 uvicorn = "^0.23.2"
 langserve = {extras = ["server"], version = ">=0.0.22"}
 code_langchain = {path = "packages/code_langchain", develop = true}
-
 
 [tool.poetry.group.dev.dependencies]
 langchain-cli = ">=0.0.15"

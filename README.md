@@ -53,7 +53,11 @@ This creates a new template ([read more](https://github.com/langchain-ai/langcha
 
 We add our code-langchain specific logic to `packages/code_langchain/code_langchain/chain.py`.
 
-We add our code-langchain specific dependencies to `packages/code_langchain/pyproject.toml`.
+We add our code-langchain specific dependencies to `packages/code_langchain/pyproject.toml`:
+```
+poetry add weaviate-client
+poetry add langchainhub
+```
 
 **(3) Configure the app to use our template**
 
@@ -65,22 +69,22 @@ code_langchain = {path = "packages/code_langchain", develop = true}
 Update the app `app/server.py` to include our template:
 ```
 from code_langchain import chain as code_langchain_run
-
 add_routes(app, code_langchain_run, path="/code_langchain")
 ```
 
 **(4) Test**
 
-Create a venv w/ python 3.11
+In the project root update the lock file with deps from both `.toml` files:
 ```
-python3 -m venv code_langchain_testing
-source code_langchain_testing/bin/activate
+poetry lock
 ```
 
-Install all app dependencies:
+Update enviorment based on the lock file:
 ```
-cd packages/code_langchain
 poetry install
 ```
 
-Run: 
+Run:
+```
+poetry run langchain serve
+```
