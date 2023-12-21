@@ -9,7 +9,7 @@ readme = "README.md"
 python = "^3.11"
 uvicorn = "^0.23.2"
 langserve = {extras = ["server"], version = ">=0.0.22"}
-code-langchain = {path = "packages/code_langchain", develop = true}
+code_langchain = {path = "packages/code_langchain", develop = true}
 
 
 [tool.poetry.group.dev.dependencies]

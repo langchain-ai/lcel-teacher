@@ -6,7 +6,11 @@ Code-langchain is a code assistant designed for LangChain.
 
 Simply ask a question related LangChain, and it will provide you with code.
 
-It will:
+The workflow uses research-assistant type sub-question generation-and-answering on the LangChain codebase, which is then passed as Q-A pairs for a second LLM call for final answer synthesis.
+
+![image](https://github.com/langchain-ai/code-langchain-v2/assets/122662504/466544df-4a26-41f6-a29e-ac3a94028b23)
+
+## Enviorment 
 
 * Generate sub-questions based on the user-input
 * Answer each using retrieval from LangChain codebase
@@ -31,7 +35,7 @@ app: This is where LangServe code will live
 packages: This is where your chains or agents will live
 ```
 
-It also create:
+It also creates:
 ```
 Dockerfile: App configurations
 pyproject.toml: Project configurations
