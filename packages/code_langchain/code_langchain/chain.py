@@ -213,8 +213,8 @@ prompt = ChatPromptTemplate.from_template(template)
 
 llm = ChatOpenAI(temperature=0, model="gpt-4")
 
-# Answers
-final_answer_chain = (
+# Answer chain
+chain = (
     RunnablePassthrough().assign(
         subq=sub_question_answer_chain
         | (
