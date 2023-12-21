@@ -12,17 +12,18 @@ The workflow uses research-assistant type sub-question generation-and-answering 
 
 ## Enviorment 
 
-* Generate sub-questions based on the user-input
-* Answer each using retrieval from LangChain codebase
-* Pass those question-answer pairs to an LLM for final code synthesis
+This will use the `chat-langchain` index in Weaviate with fine-tuned embeddings from Voyage. Set:
+
+* `WEAVIATE_URL`
+* `WEAVIATE_API_KEY`
+* `VOYAGE_API_KEY`
+* `VOYAGE_AI_MODEL`
 
 ## App structure
 
-We deploy this app on hosted LangServe.
-
 This repo was created following these steps:
 
-**(1) Create a LangChain template app.**
+**(1) Create a LangChain app.**
 
 Run:
 ```
@@ -41,50 +42,35 @@ Dockerfile: App configurations
 pyproject.toml: Project configurations
 ```
 
-**(2) Create a LangChain template**
-
-Run:
+We won't need `packages`:
 ```
-cd packages
-langchain template new code-langchain
+rm -rf packages
 ```
 
-This creates a new template ([read more](https://github.com/langchain-ai/langchain/tree/master/templates#quick-start)).
+**(2) Add your runnable**
 
-We add our code-langchain specific logic to `packages/code_langchain/code_langchain/chain.py`.
+Create a file, `chain.py` with a runnable named `chain` that you want to execute.
 
-We add our code-langchain specific dependencies to `packages/code_langchain/pyproject.toml`:
+Add `chain.py` to `app` directory.
+
+Import the runnable in `server.py`:
+```
+from app.chain import chain as code_langchain_run
+add_routes(app, code_langchain_run, path="/code-langchain")
+```
+
+Add your app dependencies to `pyproject.toml` and `poetry.lock`:
 ```
 poetry add weaviate-client
 poetry add langchainhub
 ```
 
-**(3) Configure the app to use our template**
-
-Update the app `pyproject.toml` to include our template:
-```
-code_langchain = {path = "packages/code_langchain", develop = true}
-```
-
-Update the app `app/server.py` to include our template:
-```
-from code_langchain import chain as code_langchain_run
-add_routes(app, code_langchain_run, path="/code_langchain")
-```
-
-**(4) Test**
-
-In the project root update the lock file with deps from both `.toml` files:
-```
-poetry lock
-```
-
-Update enviorment based on the lock file:
+Update enviorment based on the updated lock file:
 ```
 poetry install
 ```
 
-Run:
+Run
 ```
 poetry run langchain serve
 ```

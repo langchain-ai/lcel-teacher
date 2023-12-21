@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 from langserve import add_routes
-from code_langchain import chain as code_langchain_run
+from app.chain import chain as code_langchain_run
 
 app = FastAPI()
 
