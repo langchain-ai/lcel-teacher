@@ -59,12 +59,28 @@ We add our code-langchain specific dependencies to `packages/code_langchain/pypr
 
 Update the app `pyproject.toml` to include our template:
 ```
-code-langchain = {path = "packages/code_langchain", develop = true}
+code_langchain = {path = "packages/code_langchain", develop = true}
 ```
 
 Update the app `app/server.py` to include our template:
 ```
 from code_langchain import chain as code_langchain_run
 
-add_routes(app, code_langchain_run, path="/code-langchain")
+add_routes(app, code_langchain_run, path="/code_langchain")
 ```
+
+**(4) Test**
+
+Create a venv w/ python 3.11
+```
+python3 -m venv code_langchain_testing
+source code_langchain_testing/bin/activate
+```
+
+Install all app dependencies:
+```
+cd packages/code_langchain
+poetry install
+```
+
+Run: 

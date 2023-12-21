@@ -1,15 +1,16 @@
 [tool.poetry]
-name = "code-langchain"
+name = "code_langchain"
 version = "0.0.1"
 description = ""
-authors = []
+authors = ["Lance Martin <lance@langchain.dev>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.8.1,<4.0"
-langchain = ">=0.0.313, <0.1"
+langchain = ">=0.0.352"
 openai = "^0.28.1"
 weaviate-client = ">=3.26.0"
+langchainhub = ">=0.1.13"
 
 [tool.poetry.group.dev.dependencies]
 langchain-cli = ">=0.0.4"

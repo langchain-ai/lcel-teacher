@@ -23,8 +23,10 @@ from langchain.schema.runnable import (
 )
 from langchain.vectorstores import Weaviate
 from langchain_core.runnables import RunnablePassthrough
-from prompts import REPHRASE_TEMPLATE, RESPONSE_TEMPLATE
 from pydantic import BaseModel
+
+# Prompts
+from .prompts import REPHRASE_TEMPLATE, RESPONSE_TEMPLATE
 
 # Keys
 WEAVIATE_URL = os.environ["WEAVIATE_URL"]
