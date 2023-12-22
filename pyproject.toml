@@ -11,6 +11,7 @@ uvicorn = "^0.23.2"
 langserve = {extras = ["server"], version = ">=0.0.22"}
 weaviate-client = "^3.26.0"
 langchainhub = "^0.1.14"
+jupyter = "^1.0.0"
 
 [tool.poetry.group.dev.dependencies]
 langchain-cli = ">=0.0.15"

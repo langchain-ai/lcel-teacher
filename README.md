@@ -74,3 +74,16 @@ Run
 ```
 poetry run langchain serve
 ```
+
+## Eval
+
+In `eval/` you will see `eval.csv`.
+
+Update this to LangSmith as a dataset, `code-langchain-eval`.
+
+Run notebook to kick off eval:
+```
+poetry run jupyter notebook
+```
+
+You can see an example eval [here](https://smith.langchain.com/public/747fea3b-7fa1-441b-8080-80f5e09ec518/d).
