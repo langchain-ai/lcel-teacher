@@ -63,6 +63,7 @@ Add your app dependencies to `pyproject.toml` and `poetry.lock`:
 ```
 poetry add weaviate-client
 poetry add langchainhub
+poetry add openai
 ```
 
 Update enviorment based on the updated lock file:
