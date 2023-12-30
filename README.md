@@ -19,7 +19,25 @@ This will use the `chat-langchain` index in Weaviate with fine-tuned embeddings 
 * `VOYAGE_API_KEY`
 * `VOYAGE_AI_MODEL`
 
-## App structure
+## Running the app
+
+This is a hosted LangServe app. 
+
+You can access it [here](https://code-langchain-deployment-455c22dd058e5e3194aec23-ffoprvkqsa-uc.a.run.app/code-langchain/playground/).
+
+The deployment is [here](https://smith.langchain.com/o/ebbaf2eb-769b-4505-aca2-d11de10372a4/host/922b4b05-1ea1-475a-99e8-2a554b9c5101).
+
+The steps to deploy it are shown below.
+
+You can run it locally simply with:
+
+```
+from app.chain import chain as code_langchain_chain
+question = "how to chat PDF with chroma? Use LCEL"
+answer = code_langchain_chain.invoke({"question": question})
+```
+
+## Deployment
 
 This repo was created following these steps:
 
@@ -80,11 +98,11 @@ poetry run langchain serve
 
 In `eval/` you will see `eval.csv`.
 
-Update this to LangSmith as a dataset, `code-langchain-eval`.
+Use this to create a LangSmith as a dataset, `code-langchain-eval`.
 
 Run notebook to kick off eval:
 ```
 poetry run jupyter notebook
 ```
 
-You can see an example eval [here](https://smith.langchain.com/public/747fea3b-7fa1-441b-8080-80f5e09ec518/d).
+You can see an example eval [here](https://smith.langchain.com/public/85ce2833-3ef3-44fe-a282-e50d51767653/d).
