@@ -1,4 +1,4 @@
-# Answer template 
+# Answer template
 RESPONSE_TEMPLATE = """\
 You are an expert programmer and problem-solver, tasked with answering any question \
 about Langchain.
