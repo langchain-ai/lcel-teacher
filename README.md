@@ -10,7 +10,7 @@ The workflow uses research-assistant type sub-question generation-and-answering 
 
 ![image](https://github.com/langchain-ai/code-langchain-v2/assets/122662504/466544df-4a26-41f6-a29e-ac3a94028b23)
 
-## Enviorment 
+## Environment 
 
 This will use the `chat-langchain` index in Weaviate with fine-tuned embeddings from Voyage. Set:
 

@@ -1,0 +1,28 @@
+name: Run Evaluation
+
+on:
+    workflow_dispatch:
+
+env:
+    POETRY_VERSION: "1.4.2"
+
+jobs:
+    run_evaluation:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+                uses: actions/checkout@v2
+
+            - name: Set up Python
+                uses: actions/setup-python@v2
+                with:
+                    python-version: 3.11
+                    cache: "pip"
+            - name: Install poetry
+                run: pipx install poetry==$POETRY_VERSION
+            - name: Install dependencies
+                run: poetry install
+
+            - name: Run evaluation
+                run: pytest tests/evals
