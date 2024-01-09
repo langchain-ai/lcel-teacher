@@ -5,24 +5,30 @@ on:
 
 env:
     POETRY_VERSION: "1.4.2"
+    VOYAGE_API_KEY: ${{ secrets.VOYAGE_API_KEY }}
+    VOYAGE_AI_MODEL: ${{ secrets.VOYAGE_AI_MODEL }}
+    WEAVIATE_API_KEY: ${{ secrets.WEAVIATE_API_KEY }}
+    WEAVIATE_URL: ${{ secrets.WEAVIATE_URL }}
+    OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+    LANGCHAIN_ENDPOINT: "https://api.smith.langchain.com"
+    LANGCHAIN_API_KEY: ${{ secrets.LANGCHAIN_API_KEY }}
 
 jobs:
     run_evaluation:
         runs-on: ubuntu-latest
 
         steps:
-            - name: Checkout code
-                uses: actions/checkout@v2
+            - name: Checkout
+              uses: actions/checkout@v3
 
             - name: Set up Python
-                uses: actions/setup-python@v2
-                with:
-                    python-version: 3.11
-                    cache: "pip"
+              uses: actions/setup-python@v4
+              with:
+                python-version: 3.11
+                cache: "pip"
             - name: Install poetry
-                run: pipx install poetry==$POETRY_VERSION
+              run: pipx install poetry==$POETRY_VERSION
             - name: Install dependencies
-                run: poetry install
-
+              run: poetry install --with dev
             - name: Run evaluation
-                run: pytest tests/evals
+              run: poetry run python -m eval.test_chain
