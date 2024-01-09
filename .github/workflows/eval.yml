@@ -25,4 +25,4 @@ jobs:
                 run: poetry install
 
             - name: Run evaluation
-                run: python run_eval.py
+                run: pytest tests/evals
