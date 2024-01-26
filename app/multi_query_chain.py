@@ -23,7 +23,7 @@ from langchain.schema.runnable import (
 )
 from langchain.vectorstores import Weaviate
 from langchain_core.runnables import RunnablePassthrough
-from pydantic import BaseModel
+from langchain_core.pydantic_v1 import BaseModel
 
 # Prompts
 from .prompts import REPHRASE_TEMPLATE, RESPONSE_TEMPLATE
@@ -232,3 +232,9 @@ chain = (
     | llm
     | StrOutputParser()
 )
+
+# Add typing for input
+class Question(BaseModel):
+    __root__: str
+
+chain = chain.with_types(input_type=Question)
