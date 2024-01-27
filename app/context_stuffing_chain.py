@@ -13,6 +13,23 @@ loader = RecursiveUrlLoader(
 )
 docs = loader.load()
 
+# LCEL w/ PydanticOutputParser (outside the primary LCEL docs)
+url = "https://python.langchain.com/docs/modules/model_io/output_parsers/quick_start"
+loader = RecursiveUrlLoader(
+    url=url, max_depth=1, extractor=lambda x: Soup(x, "html.parser").text
+)
+docs_pydantic = loader.load()
+
+# LCEL w/ Self Query (outside the primary LCEL docs)
+url = "https://python.langchain.com/docs/modules/data_connection/retrievers/self_query/"
+loader = RecursiveUrlLoader(
+    url=url, max_depth=1, extractor=lambda x: Soup(x, "html.parser").text
+)
+docs_sq = loader.load()
+
+# Add 
+docs.extend([*docs_pydantic, *docs_sq])
+
 # Sort the list based on the URLs in 'metadata' -> 'source'
 d_sorted = sorted(docs, key=lambda x: x.metadata["source"])
 d_reversed = list(reversed(d_sorted))
@@ -30,7 +47,7 @@ Now, answer the user question based on the above provided documentation: {questi
 """
 prompt = ChatPromptTemplate.from_template(template)
 
-model = ChatOpenAI(temperature=0, model="gpt-4-1106-preview")
+model = ChatOpenAI(temperature=0, model="gpt-4-1106-preview") 
 
 chain = (
     {

@@ -4,7 +4,7 @@ from typing import Dict, List, Optional, Sequence
 
 import weaviate
 from langchain import hub
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.embeddings.voyageai import VoyageEmbeddings
 from langchain.output_parsers.json import SimpleJsonOutputParser
