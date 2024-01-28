@@ -6,5 +6,5 @@ if __name__ == "__main__":
         csv_file="eval/eval.csv",
         input_keys=["question"],
         output_keys=["answer"],
-        name="code-langchain-eval",
+        name="lcel-teacher-eval",
     )
