@@ -18,7 +18,7 @@ Code for each can be found in the `/app` directory.
 
 ## Environment 
 
-We use Poetry for depeendency management. 
+We use Poetry for dependency management. 
  
 `Context stuffing` requires no vectorstore access because we will directly read the docs and stuff them into the LLM context windopw.
  
