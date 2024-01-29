@@ -33,11 +33,13 @@ Both `RAG` approaches rely on an vectorstore index of LangChain documentation (W
 
 This repo is a LangServe app. We host it using hosted LangServe. To learn more [see this video](https://www.youtube.com/watch?v=EhlPDL4QrWY).
 
-You can access it [here](https://code-langchain-deployment-455c22dd058e5e3194aec23-ffoprvkqsa-uc.a.run.app/code-langchain/playground/).
+You can access it [here](https://lcel-teacher-07fb6cd4e0815e64acb318d410f74a37-ffoprvkqsa-uc.a.run.app/lcel-teacher/playground/).
 
-The deployment is [here](https://smith.langchain.com/o/ebbaf2eb-769b-4505-aca2-d11de10372a4/host/922b4b05-1ea1-475a-99e8-2a554b9c5101).
+<img width="812" alt="Screenshot 2024-01-29 at 10 06 44 AM" src="https://github.com/langchain-ai/lcel-teacher/assets/122662504/eb49c291-a00b-460f-a0fe-7b6a4cba21e5">
 
-The steps to deploy it are shown below.
+The deployment in the LangChain org within LangSmith is [here](https://smith.langchain.com/o/ebbaf2eb-769b-4505-aca2-d11de10372a4/host/2ef29f66-e508-4a7a-8a22-8d5ef997f985).
+
+The steps to deploy it for yourself are shown below.
 
 --- 
 
@@ -110,8 +112,8 @@ chain = chain.with_types(input_type=Question)
 
 Now, we simply import the chain in `server.py`:
 ```
-from app.context_stuffing_chain import chain as code_langchain_stuff
-add_routes(app, code_langchain_stuff, path="/code-langchain")
+from app.deploy_chain import chain as chain_to_deploy
+add_routes(app, chain_to_deploy, path="/lcel-teacher")
 ```
 
 Run locally
