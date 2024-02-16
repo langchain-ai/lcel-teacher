@@ -11,8 +11,9 @@ We explore three several architectures for LCEL-teacher in this repo, including
 * `Context stuffing` of LCEL docs into the LLM context window
 * `RAG` using retrieval from a vector databases of all LangChain documentation  
 * `RAG using multi-question and answer generation` using retrieval from a vector databases of all LangChain documentation  
-
-![rag_code_langchain](https://github.com/langchain-ai/lcel-teacher/assets/122662504/1765a68b-e143-42be-8d1a-cefc177aa66f)
+* `Context stuffing with recovery` using LangGraph for code execution and re-try
+  
+![Screenshot 2024-02-16 at 2 30 50 PM](https://github.com/langchain-ai/lcel-teacher/assets/122662504/ed53836b-69c7-4507-8683-5f728f9281bc)
 
 Code for each can be found in the `/app` directory.
 
