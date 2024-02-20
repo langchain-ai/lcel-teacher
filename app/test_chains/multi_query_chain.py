@@ -23,7 +23,9 @@ from langchain.schema.runnable import (
 )
 from langchain.vectorstores import Weaviate
 from langchain_core.runnables import RunnablePassthrough
-from langchain_core.pydantic_v1 import BaseModel
+from langchain_core.pydantic_v1 import BaseModel, Field
+from langchain.output_parsers.openai_tools import PydanticToolsParser
+from langchain_core.utils.function_calling import convert_to_openai_tool
 
 # Prompts
 from .prompts import REPHRASE_TEMPLATE, RESPONSE_TEMPLATE
@@ -196,24 +198,48 @@ sub_question_answer_chain = (
     | RunnablePassthrough.assign(answer=answer_chain).map()
 )
 
-# Prompt template for final answer
-template = """You are an expert coder. You got a high level question:
+## Data model
+class code(BaseModel):
+    """Code output"""
+    prefix: str = Field(description="Description of the problem and approach")
+    imports: str = Field(description="Code block import statements")
+    code: str = Field(description="Code block not including import statements")
 
-<question>
-{question}
-</question>
+## LLM
+model = ChatOpenAI(temperature=0, model="gpt-4-0125-preview", streaming=True)
 
-Based on this question, you broke it down into sub questions and answered those. These are the results of that:
+# Tool
+code_tool_oai = convert_to_openai_tool(code)
 
-<subquestions>
-{subq}
-</subquestions>
-    
-Now, combine all the subquestion answers to generate a final code snippet writing the code that was asked for.
-"""
-prompt = ChatPromptTemplate.from_template(template)
+# LLM with tool and enforce invocation
+llm_with_tool = model.bind(
+    tools=[convert_to_openai_tool(code_tool_oai)],
+    tool_choice={"type": "function", "function": {"name": "code"}},
+)
 
-llm = ChatOpenAI(temperature=0, model="gpt-4")
+# Parser
+parser_tool = PydanticToolsParser(tools=[code])
+
+# Create a prompt template with format instructions and the query
+prompt = PromptTemplate(
+    template = """You are an expert coder. You got a high level question:
+
+    <question>
+    {question}
+    </question>
+
+    Based on this question, you broke it down into sub questions and answered those. These are the results of that:
+
+    <subquestions>
+    {subq}
+    </subquestions>
+        
+    Ensure any code you provide can be executed with all required imports and variables defined. \n
+    Structure your answer with a description of the code solution. \n
+    Then list the imports. And finally list the functioning code block. \n
+    """,
+    input_variables=["question","subq"],
+)
 
 # Answer chain
 chain = (
@@ -229,8 +255,8 @@ chain = (
         )
     )
     | prompt
-    | llm
-    | StrOutputParser()
+    | llm_with_tool
+    | parser_tool
 )
 
 # Add typing for input
